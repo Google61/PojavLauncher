@@ -90,7 +90,7 @@ public class PojavLoginActivity extends BaseActivity
 
     public static final String PREF_IS_INSTALLED_JAVARUNTIME = "isJavaRuntimeInstalled";
     
-    public Uri treeUri
+    public Uri treeUri;
     
     @Override
     protected void onCreate(Bundle savedInstanceState){
