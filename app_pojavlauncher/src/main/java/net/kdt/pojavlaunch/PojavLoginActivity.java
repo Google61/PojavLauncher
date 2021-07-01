@@ -836,7 +836,7 @@ public class PojavLoginActivity extends BaseActivity
     }
     //We are calling this method to check the permission status
     private boolean isStorageAllowed() {
-        int status = 1;
+        boolean status = false;
         if (Build.VERSION.SDK_INT >= 23) {
             //Getting the permission status
             int result1 = ContextCompat.checkSelfPermission(this, Manifest.permission.WRITE_EXTERNAL_STORAGE);
@@ -846,14 +846,14 @@ public class PojavLoginActivity extends BaseActivity
             //If permission is granted returning true
             if (result1 == PackageManager.PERMISSION_GRANTED &&
                 result2 == PackageManager.PERMISSION_GRANTED) {
-                int status = 0;
+                status = true;
             }
         }
         if (Build.VERSION.SDK_INT < 23) {
             if (getContentResolver().takePersistableUriPermission(treeUri,
             Intent.FLAG_GRANT_READ_URI_PERMISSION |
             Intent.FLAG_GRANT_WRITE_URI_PERMISSION)) {
-                int status = 0;
+                status = true;
             }
         }
     return status;
