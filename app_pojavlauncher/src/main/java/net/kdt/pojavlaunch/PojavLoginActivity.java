@@ -844,16 +844,14 @@ public class PojavLoginActivity extends BaseActivity
 
 
             //If permission is granted returning true
-            if (result1 == PackageManager.PERMISSION_GRANTED &&
-                result2 == PackageManager.PERMISSION_GRANTED) {
-                status = true;
+            status = (result1 == PackageManager.PERMISSION_GRANTED &&
+                result2 == PackageManager.PERMISSION_GRANTED);
             }
         }
         if (Build.VERSION.SDK_INT < 23) {
-            if (getContentResolver().takePersistableUriPermission(treeUri,
+            status = (getContentResolver().takePersistableUriPermission(treeUri,
             Intent.FLAG_GRANT_READ_URI_PERMISSION |
-            Intent.FLAG_GRANT_WRITE_URI_PERMISSION)) {
-                status = true;
+            Intent.FLAG_GRANT_WRITE_URI_PERMISSION))
             }
         }
     return status;
