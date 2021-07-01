@@ -66,6 +66,7 @@ import net.kdt.pojavlaunch.prefs.LauncherPreferences;
 import net.kdt.pojavlaunch.utils.JREUtils;
 import net.kdt.pojavlaunch.utils.LocaleUtils;
 import net.kdt.pojavlaunch.value.MinecraftAccount;
+import net.kdt.pojavlaunch.Tools;
 import org.apache.commons.compress.archivers.tar.TarArchiveEntry;
 import org.apache.commons.compress.archivers.tar.TarArchiveInputStream;
 import org.apache.commons.compress.compressors.xz.XZCompressorInputStream;
@@ -139,7 +140,7 @@ public class PojavLoginActivity extends BaseActivity
 
             publishProgress("visible");
 
-            while (Build.VERSION.SDK_INT >= 23 && !isStorageAllowed()){
+            while (Build.VERSION.SDK_INT >= 21 && !isStorageAllowed()){
                 try {
                     revokeCount++;
                     if (revokeCount >= 3) {
@@ -148,14 +149,20 @@ public class PojavLoginActivity extends BaseActivity
                         return 0;
                     }
                     
-                    requestStoragePermission();
+                    if (Build.VERSION.SDK_INT >= 23) {
+                        requestStoragePermission();
+                    }
+                    
+                    if (Build.VERSION.SDK_INT < 23) {
+                        requestSdCardPermission();
+                    }
                     
                     synchronized (mLockStoragePerm) {
                         mLockStoragePerm.wait();
                     }
                 } catch (InterruptedException e) {}
             }
-
+            
             try {
                 initMain();
             } catch (Throwable th) {
@@ -827,14 +834,21 @@ public class PojavLoginActivity extends BaseActivity
     }
     //We are calling this method to check the permission status
     private boolean isStorageAllowed() {
-        //Getting the permission status
-        int result1 = ContextCompat.checkSelfPermission(this, Manifest.permission.WRITE_EXTERNAL_STORAGE);
-        int result2 = ContextCompat.checkSelfPermission(this, Manifest.permission.READ_EXTERNAL_STORAGE);
+        if (Build.VERSION.SDK_INT >= 23) {
+            //Getting the permission status
+            int result1 = ContextCompat.checkSelfPermission(this, Manifest.permission.WRITE_EXTERNAL_STORAGE);
+            int result2 = ContextCompat.checkSelfPermission(this, Manifest.permission.READ_EXTERNAL_STORAGE);
 
 
-        //If permission is granted returning true
-        return result1 == PackageManager.PERMISSION_GRANTED &&
-            result2 == PackageManager.PERMISSION_GRANTED;
+            //If permission is granted returning true
+            return result1 == PackageManager.PERMISSION_GRANTED &&
+                result2 == PackageManager.PERMISSION_GRANTED;
+        }
+        if (Build.VERSION.SDK_INT < 23) {
+            getContentResolver().takePersistableUriPermission(treeUri,
+            Intent.FLAG_GRANT_READ_URI_PERMISSION |
+            Intent.FLAG_GRANT_WRITE_URI_PERMISSION);
+        }
     }
 
     //Requesting permission
@@ -852,6 +866,20 @@ public class PojavLoginActivity extends BaseActivity
                 mLockStoragePerm.notifyAll();
             }
         }
+    }
+    
+    // Request storage through SAF for Android 5.0-5.1
+    private void requestSdcardPermission()
+    {
+        Intent intent = new Intent(Intent.ACTION_OPEN_DOCUMENT_TREE);
+        startActivityForResult(intent, 42);
+    }
+
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent resultData) {
+    if (resultCode == RESULT_OK) {
+        Uri treeUri = resultData.getData();
+        Tools.DIR_GAME_HOME = treeUri;
     }
 
     //When the user have no saved account, you can show him this dialog
