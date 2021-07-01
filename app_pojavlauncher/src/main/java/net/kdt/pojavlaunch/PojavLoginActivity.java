@@ -881,7 +881,7 @@ public class PojavLoginActivity extends BaseActivity
         Uri treeUri = resultData.getData();
         Tools.DIR_GAME_HOME = treeUri;
     }
-
+    }
     //When the user have no saved account, you can show him this dialog
     private void showNoAccountDialog(){
         AlertDialog.Builder builder = new AlertDialog.Builder(PojavLoginActivity.this);
