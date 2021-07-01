@@ -90,6 +90,8 @@ public class PojavLoginActivity extends BaseActivity
 
     public static final String PREF_IS_INSTALLED_JAVARUNTIME = "isJavaRuntimeInstalled";
     
+    public Uri treeUri
+    
     @Override
     protected void onCreate(Bundle savedInstanceState){
         super.onCreate(savedInstanceState); // false;
@@ -869,7 +871,7 @@ public class PojavLoginActivity extends BaseActivity
     }
     
     // Request storage through SAF for Android 5.0-5.1
-    private void requestSdcardPermission()
+    private void requestSdCardPermission()
     {
         Intent intent = new Intent(Intent.ACTION_OPEN_DOCUMENT_TREE);
         startActivityForResult(intent, 42);
@@ -879,7 +881,7 @@ public class PojavLoginActivity extends BaseActivity
     public void onActivityResult(int requestCode, int resultCode, Intent resultData) {
     if (resultCode == RESULT_OK) {
         Uri treeUri = resultData.getData();
-        Tools.DIR_GAME_HOME = treeUri;
+        Tools.DIR_GAME_HOME = treeUri.toString();
     }
     }
     //When the user have no saved account, you can show him this dialog
