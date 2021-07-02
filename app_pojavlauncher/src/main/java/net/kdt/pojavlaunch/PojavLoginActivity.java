@@ -847,13 +847,11 @@ public class PojavLoginActivity extends BaseActivity
             status = (result1 == PackageManager.PERMISSION_GRANTED &&
                 result2 == PackageManager.PERMISSION_GRANTED);
             }
-        }
         if (Build.VERSION.SDK_INT < 23) {
             status = (getContentResolver().takePersistableUriPermission(treeUri,
             Intent.FLAG_GRANT_READ_URI_PERMISSION |
             Intent.FLAG_GRANT_WRITE_URI_PERMISSION))
             }
-        }
     return status;
     }
 
