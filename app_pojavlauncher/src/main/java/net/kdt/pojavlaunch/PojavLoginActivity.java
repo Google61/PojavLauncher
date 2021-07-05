@@ -836,25 +836,16 @@ public class PojavLoginActivity extends BaseActivity
     }
     //We are calling this method to check the permission status
     private boolean isStorageAllowed() {
-        boolean status = false;
-        if (Build.VERSION.SDK_INT >= 23) {
-            //Getting the permission status
-            int result1 = ContextCompat.checkSelfPermission(this, Manifest.permission.WRITE_EXTERNAL_STORAGE);
-            int result2 = ContextCompat.checkSelfPermission(this, Manifest.permission.READ_EXTERNAL_STORAGE);
+        //Getting the permission status
+        int result1 = ContextCompat.checkSelfPermission(this, Manifest.permission.WRITE_EXTERNAL_STORAGE);
+        int result2 = ContextCompat.checkSelfPermission(this, Manifest.permission.READ_EXTERNAL_STORAGE);
 
 
-            //If permission is granted returning true
-            status = (result1 == PackageManager.PERMISSION_GRANTED &&
-                result2 == PackageManager.PERMISSION_GRANTED);
-            }
-        if (Build.VERSION.SDK_INT < 23) {
-            status = (getContentResolver().takePersistableUriPermission(treeUri,
-            Intent.FLAG_GRANT_READ_URI_PERMISSION |
-            Intent.FLAG_GRANT_WRITE_URI_PERMISSION));
-            }
-    return status;
+        //If permission is granted returning true
+        return result1 == PackageManager.PERMISSION_GRANTED &&
+            result2 == PackageManager.PERMISSION_GRANTED;
     }
-
+    
     //Requesting permission
     private void requestStoragePermission()
     {
@@ -883,6 +874,9 @@ public class PojavLoginActivity extends BaseActivity
     public void onActivityResult(int requestCode, int resultCode, Intent resultData) {
     if (resultCode == RESULT_OK) {
         Uri treeUri = resultData.getData();
+        getContentResolver().takePersistableUriPermission(treeUri,
+            Intent.FLAG_GRANT_READ_URI_PERMISSION |
+            Intent.FLAG_GRANT_WRITE_URI_PERMISSION);
         Tools.DIR_GAME_HOME = treeUri.toString();
     }
     }
