@@ -878,7 +878,7 @@ public class PojavLoginActivity extends BaseActivity
             Intent.FLAG_GRANT_READ_URI_PERMISSION |
             Intent.FLAG_GRANT_WRITE_URI_PERMISSION);
         Tools.DIR_GAME_HOME = treeUri.toString();
-        public boolean isStorageAllowed() { return true; }
+        public boolean isStorageAllowed() { return true; };
     }
     }
     //When the user have no saved account, you can show him this dialog
