@@ -160,9 +160,8 @@ public class PojavLoginActivity extends BaseActivity
                 } catch (InterruptedException e) {}
             }
             
-            while (Build.VERSION.SDK_INT < 23 && !StorageAllowed) {
+            if (Build.VERSION.SDK_INT < 23 && !StorageAllowed) {
                 requestSdCardPermission();
-                
             }
             
             try {
