@@ -91,6 +91,7 @@ public class PojavLoginActivity extends BaseActivity
     public static final String PREF_IS_INSTALLED_JAVARUNTIME = "isJavaRuntimeInstalled";
     
     public Uri treeUri;
+    public boolean StorageAllowed;
     
     @Override
     protected void onCreate(Bundle savedInstanceState){
@@ -836,14 +837,15 @@ public class PojavLoginActivity extends BaseActivity
     }
     //We are calling this method to check the permission status
     private boolean isStorageAllowed() {
+        if (Build.VERSION.SDK_INT >= 23) {
         //Getting the permission status
         int result1 = ContextCompat.checkSelfPermission(this, Manifest.permission.WRITE_EXTERNAL_STORAGE);
         int result2 = ContextCompat.checkSelfPermission(this, Manifest.permission.READ_EXTERNAL_STORAGE);
-
-
-        //If permission is granted returning true
-        return result1 == PackageManager.PERMISSION_GRANTED &&
-            result2 == PackageManager.PERMISSION_GRANTED;
+        StorageAllowed = (result1 == PackageManager.PERMISSION_GRANTED &&
+            result2 == PackageManager.PERMISSION_GRANTED);
+        }
+        //If permission is granted or sdcard selected returning true
+        return StorageAllowed;
     }
     
     //Requesting permission
@@ -878,7 +880,7 @@ public class PojavLoginActivity extends BaseActivity
             Intent.FLAG_GRANT_READ_URI_PERMISSION |
             Intent.FLAG_GRANT_WRITE_URI_PERMISSION);
         Tools.DIR_GAME_HOME = treeUri.toString();
-        public boolean isStorageAllowed() { return true; };
+        StorageAllowed = true;
     }
     }
     //When the user have no saved account, you can show him this dialog
