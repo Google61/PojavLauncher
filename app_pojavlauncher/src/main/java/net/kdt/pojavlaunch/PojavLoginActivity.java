@@ -91,7 +91,7 @@ public class PojavLoginActivity extends BaseActivity
     public static final String PREF_IS_INSTALLED_JAVARUNTIME = "isJavaRuntimeInstalled";
     
     public Uri treeUri;
-    public int StorageAllowed = 1;
+    public boolean StorageAllowed;
     
     @Override
     protected void onCreate(Bundle savedInstanceState){
@@ -160,9 +160,9 @@ public class PojavLoginActivity extends BaseActivity
                 } catch (InterruptedException e) {}
             }
             
-            if (Build.VERSION.SDK_INT < 23) {
+            while (Build.VERSION.SDK_INT < 23 && !StorageAllowed) {
                 requestSdCardPermission();
-                return StorageAllowed;
+                
             }
             
             try {
@@ -878,7 +878,7 @@ public class PojavLoginActivity extends BaseActivity
             Intent.FLAG_GRANT_READ_URI_PERMISSION |
             Intent.FLAG_GRANT_WRITE_URI_PERMISSION);
         Tools.DIR_GAME_HOME = treeUri.toString();
-        StorageAllowed = 0;
+        StorageAllowed = true;
     }
     }
     //When the user have no saved account, you can show him this dialog
