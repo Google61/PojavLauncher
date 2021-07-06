@@ -157,7 +157,6 @@ public class PojavLoginActivity extends BaseActivity
                     
                     if (Build.VERSION.SDK_INT < 23) {
                         requestSdCardPermission();
-                        onRequestSdCardPermission();
                     }
                     
                     synchronized (mLockStoragePerm) {
