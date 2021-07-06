@@ -142,7 +142,7 @@ public class PojavLoginActivity extends BaseActivity
 
             publishProgress("visible");
 
-            while (Build.VERSION.SDK_INT >= 21 && !isStorageAllowed()){
+            while (Build.VERSION.SDK_INT >= 21){
                 try {
                     revokeCount++;
                     if (revokeCount >= 3) {
