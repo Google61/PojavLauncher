@@ -836,7 +836,7 @@ public class PojavLoginActivity extends BaseActivity
         return str;
     }
     //We are calling this method to check the permission status
-    private boolean isStorageAllowed() {
+    public boolean isStorageAllowed() {
         if (Build.VERSION.SDK_INT >= 23) {
         //Getting the permission status
         int result1 = ContextCompat.checkSelfPermission(this, Manifest.permission.WRITE_EXTERNAL_STORAGE);
