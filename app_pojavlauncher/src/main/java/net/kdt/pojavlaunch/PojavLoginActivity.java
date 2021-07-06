@@ -142,7 +142,7 @@ public class PojavLoginActivity extends BaseActivity
 
             publishProgress("visible");
 
-            while (Build.VERSION.SDK_INT >= 21){
+            while !isStorageAllowed {
                 try {
                     revokeCount++;
                     if (revokeCount >= 3) {
@@ -157,6 +157,7 @@ public class PojavLoginActivity extends BaseActivity
                     
                     if (Build.VERSION.SDK_INT < 23) {
                         requestSdCardPermission();
+                        onRequestSdCardPermission();
                     }
                     
                     synchronized (mLockStoragePerm) {
@@ -871,13 +872,14 @@ public class PojavLoginActivity extends BaseActivity
     }
 
     @Override
-    public void onActivityResult(int requestCode, int resultCode, Intent resultData) {
+    public void onRequestSdCardPermission(int requestCode, int resultCode, Intent resultData) {
     if (resultCode == RESULT_OK) {
         Uri treeUri = resultData.getData();
         getContentResolver().takePersistableUriPermission(treeUri,
             Intent.FLAG_GRANT_READ_URI_PERMISSION |
             Intent.FLAG_GRANT_WRITE_URI_PERMISSION);
         Tools.DIR_GAME_HOME = treeUri.toString();
+        isStorageAllowed = true
     }
     }
     //When the user have no saved account, you can show him this dialog
