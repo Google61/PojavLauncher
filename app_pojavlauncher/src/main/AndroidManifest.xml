@@ -24,7 +24,7 @@
             android:value="ratio_float"/>
 		
         <activity
-            android:launchMode="singleTop"
+            android:launchMode="standard"
             android:screenOrientation="sensorLandscape"
             android:label="@string/app_short_name"
             android:name=".PojavLoginActivity"
