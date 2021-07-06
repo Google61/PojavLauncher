@@ -878,6 +878,7 @@ public class PojavLoginActivity extends BaseActivity
             Intent.FLAG_GRANT_WRITE_URI_PERMISSION);
         Tools.DIR_GAME_HOME = treeUri.toString();
         StorageAllowed = true;
+        Toast.makeText(PojavLoginActivity.this, ("Picked URI" + treeUri.toString()), Toast.LENGTH_LONG).show();
     }
     }
     //When the user have no saved account, you can show him this dialog
