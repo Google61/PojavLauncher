@@ -52,7 +52,7 @@ public final class Tools
     public static String DIR_GAME_NEW = DIR_GAME_HOME + "/.minecraft";
     public static String DIR_GAME_OLD = Environment.getExternalStorageDirectory().getAbsolutePath() + "/games/.minecraft";
     
-    public void setGameHome(String path) {
+    public static void setGameHome(String path) {
         this.DIR_GAME_HOME = path;
     }
     
