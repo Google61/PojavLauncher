@@ -132,7 +132,7 @@ public class PojavLoginActivity extends BaseActivity
         
         private int revokeCount = -1;
         
-        private boolean isInitCalled;
+        public boolean isInitCalled;
         protected Integer tryInitMain() {
             int InitCode = 0;
             try {
@@ -176,7 +176,7 @@ public class PojavLoginActivity extends BaseActivity
                 requestSdCardPermission();
             }
             
-            while (isStorageAllowed() || StorageAllowed && !didMainInit) {
+            while (isStorageAllowed() || StorageAllowed && !isInitCalled) {
                 isInitCalled = true;
                 return tryInitMain();
             }
