@@ -134,12 +134,14 @@ public class PojavLoginActivity extends BaseActivity
         
         private boolean didMainInit;
         protected Integer tryInitMain() {
+            int InitMainCode = 0;
             try {
                 initMain();
                 } catch (Throwable th) {
                     Tools.showError(PojavLoginActivity.this, th, true);
-                    return 1;
+                    InitMainCode = 1;
                 }
+            return InitMainCode;
         }
 
         @Override
