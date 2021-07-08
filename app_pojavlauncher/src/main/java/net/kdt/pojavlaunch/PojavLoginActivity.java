@@ -132,16 +132,16 @@ public class PojavLoginActivity extends BaseActivity
         
         private int revokeCount = -1;
         
-        private boolean didMainInit;
+        private boolean isInitCalled;
         protected Integer tryInitMain() {
-            int InitMainCode = 0;
+            int InitCode = 0;
             try {
                 initMain();
                 } catch (Throwable th) {
                     Tools.showError(PojavLoginActivity.this, th, true);
-                    InitMainCode = 1;
+                    InitCode = 1;
                 }
-            return InitMainCode;
+            return InitCode;
         }
 
         @Override
@@ -177,7 +177,7 @@ public class PojavLoginActivity extends BaseActivity
             }
             
             while (isStorageAllowed() || StorageAllowed && !didMainInit) {
-                didMainInit = true;
+                isInitCalled = true;
                 return tryInitMain();
             }
             return 0;
@@ -239,7 +239,6 @@ public class PojavLoginActivity extends BaseActivity
         spinnerChgLang.setAdapter(langAdapter);
         spinnerChgLang.setSelection(selectedLang);
         spinnerChgLang.setOnItemSelectedListener(new Spinner.OnItemSelectedListener(){
-            private boolean isInitCalled;
             @Override
             public void onItemSelected(AdapterView<?> adapter, View view, int position, long id) {
                 if (!isInitCalled) {
@@ -885,10 +884,10 @@ public class PojavLoginActivity extends BaseActivity
         getContentResolver().takePersistableUriPermission(treeUri,
             Intent.FLAG_GRANT_READ_URI_PERMISSION |
             Intent.FLAG_GRANT_WRITE_URI_PERMISSION);
-        Tools.DIR_GAME_HOME = treeUri.getPath();
+        Tools.DIR_GAME_HOME = treeUri.getPath().toString();
         StorageAllowed = true;
         if (Tools.ENABLE_DEV_FEATURES) {
-            Toast.makeText(PojavLoginActivity.this, ("Picked path: " + treeUri.getPath()), Toast.LENGTH_LONG).show();
+            Toast.makeText(PojavLoginActivity.this, ("Picked path: " + treeUri.getPath().toString()), Toast.LENGTH_LONG).show();
         }
     }
     }
