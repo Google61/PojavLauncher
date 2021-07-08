@@ -174,7 +174,7 @@ public class PojavLoginActivity extends BaseActivity
                 requestSdCardPermission();
             }
             
-            while (isStorageAllowed || StorageAllowed && !didMainInit) {
+            while (isStorageAllowed() || StorageAllowed && !didMainInit) {
                 didMainInit = true;
                 return tryInitMain();
             }
@@ -883,9 +883,11 @@ public class PojavLoginActivity extends BaseActivity
         getContentResolver().takePersistableUriPermission(treeUri,
             Intent.FLAG_GRANT_READ_URI_PERMISSION |
             Intent.FLAG_GRANT_WRITE_URI_PERMISSION);
-        Tools.setGameHome(treeUri.getPath());
+        Tools.DIR_GAME_HOME = treeUri.getAbsolutePath();
         StorageAllowed = true;
-        Toast.makeText(PojavLoginActivity.this, ("Picked path " + treeUri.getPath()), Toast.LENGTH_LONG).show();
+        if (Tools.ENABLE_DEV_FEATURES) {
+            Toast.makeText(PojavLoginActivity.this, ("Picked path: " + treeUri.getAbsolutePath()), Toast.LENGTH_LONG).show();
+        }
     }
     }
     //When the user have no saved account, you can show him this dialog
