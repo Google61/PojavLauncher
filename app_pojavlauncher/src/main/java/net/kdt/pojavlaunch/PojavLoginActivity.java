@@ -132,6 +132,16 @@ public class PojavLoginActivity extends BaseActivity
         
         private int revokeCount = -1;
         
+        private boolean didMainInit;
+        protected Integer tryInitMain() {
+            try {
+                initMain();
+                } catch (Throwable th) {
+                    Tools.showError(PojavLoginActivity.this, th, true);
+                    return 1;
+                }
+        }
+
         @Override
         protected Integer doInBackground(Boolean[] params) {
             // If trigger a quick restart
@@ -164,13 +174,10 @@ public class PojavLoginActivity extends BaseActivity
                 requestSdCardPermission();
             }
             
-            try {
-                initMain();
-            } catch (Throwable th) {
-                Tools.showError(PojavLoginActivity.this, th, true);
-                return 1;
+            while (isStorageAllowed || StorageAllowed && !didMainInit) {
+                didMainInit = true;
+                return tryInitMain();
             }
-
             return 0;
         }
 
