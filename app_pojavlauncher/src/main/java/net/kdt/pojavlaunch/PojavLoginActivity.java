@@ -102,12 +102,12 @@ public class PojavLoginActivity extends BaseActivity
     public Uri treeUri;
     public boolean StorageAllowed;
     // move to utils??
-    public final class FileUtil {
+    //public final class FileUtil {
 
     private static final String PRIMARY_VOLUME_NAME = "primary";
 
     @Nullable
-    public String getFullPathFromTreeUri(@Nullable final Uri treeUri, Context con) {
+    public static String getFullPathFromTreeUri(@Nullable final Uri treeUri, Context con) {
         if (treeUri == null) return null;
         String volumePath = getVolumePath(getVolumeIdFromTreeUri(treeUri),con);
         if (volumePath == null) return File.separator;
@@ -128,7 +128,7 @@ public class PojavLoginActivity extends BaseActivity
     }
 
 
-    private String getVolumePath(final String volumeId, Context context) {
+    private static String getVolumePath(final String volumeId, Context context) {
         if (Build.VERSION.SDK_INT < Build.VERSION_CODES.LOLLIPOP)
             return null;
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.R)
@@ -138,7 +138,7 @@ public class PojavLoginActivity extends BaseActivity
     }
 
 
-    private String getVolumePathBeforeAndroid11(final String volumeId, Context context){
+    private static String getVolumePathBeforeAndroid11(final String volumeId, Context context){
         try {
             StorageManager mStorageManager = (StorageManager) context.getSystemService(Context.STORAGE_SERVICE);
             Class<?> storageVolumeClazz = Class.forName("android.os.storage.StorageVolume");
@@ -168,7 +168,7 @@ public class PojavLoginActivity extends BaseActivity
     }
 
     @TargetApi(Build.VERSION_CODES.R)
-    private String getVolumePathForAndroid11AndAbove(final String volumeId, Context context) {
+    private static String getVolumePathForAndroid11AndAbove(final String volumeId, Context context) {
         try {
             StorageManager mStorageManager = (StorageManager) context.getSystemService(Context.STORAGE_SERVICE);
             List<StorageVolume> storageVolumes = mStorageManager.getStorageVolumes();
@@ -191,7 +191,7 @@ public class PojavLoginActivity extends BaseActivity
     }
 
     @TargetApi(Build.VERSION_CODES.LOLLIPOP)
-    private String getVolumeIdFromTreeUri(final Uri treeUri) {
+    private static String getVolumeIdFromTreeUri(final Uri treeUri) {
         final String docId = DocumentsContract.getTreeDocumentId(treeUri);
         final String[] split = docId.split(":");
         if (split.length > 0) return split[0];
@@ -200,13 +200,13 @@ public class PojavLoginActivity extends BaseActivity
 
 
     @TargetApi(Build.VERSION_CODES.LOLLIPOP)
-    private String getDocumentPathFromTreeUri(final Uri treeUri) {
+    private static String getDocumentPathFromTreeUri(final Uri treeUri) {
         final String docId = DocumentsContract.getTreeDocumentId(treeUri);
         final String[] split = docId.split(":");
         if ((split.length >= 2) && (split[1] != null)) return split[1];
         else return File.separator;
     }
-    }
+    //}
     //
     @Override
     protected void onCreate(Bundle savedInstanceState){
@@ -1000,7 +1000,7 @@ public class PojavLoginActivity extends BaseActivity
         getContentResolver().takePersistableUriPermission(treeUri,
             Intent.FLAG_GRANT_READ_URI_PERMISSION |
             Intent.FLAG_GRANT_WRITE_URI_PERMISSION);
-        String GamePath = FileUtil.getFullPathFromTreeUri(treeUri,this); 
+        String GamePath = getFullPathFromTreeUri(treeUri,this); 
         Tools.DIR_GAME_HOME = GamePath;
         StorageAllowed = true;
         if (Tools.ENABLE_DEV_FEATURES) {
