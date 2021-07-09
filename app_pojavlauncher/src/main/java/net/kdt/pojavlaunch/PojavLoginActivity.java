@@ -197,6 +197,7 @@ public class PojavLoginActivity extends BaseActivity
         if ((split.length >= 2) && (split[1] != null)) return split[1];
         else return File.separator;
     }
+    }
     //
     @Override
     protected void onCreate(Bundle savedInstanceState){
