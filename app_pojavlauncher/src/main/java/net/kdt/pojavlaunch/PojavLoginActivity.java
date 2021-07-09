@@ -176,7 +176,7 @@ public class PojavLoginActivity extends BaseActivity
                 requestSdCardPermission();
             }
             
-            while (isStorageAllowed() || StorageAllowed && !isInitCalled) {
+            while (isStorageAllowed() || StorageAllowed && !isInitCalled2) {
                 isInitCalled2 = true;
                 return tryInitMain();
             }
