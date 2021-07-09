@@ -1001,6 +1001,9 @@ public class PojavLoginActivity extends BaseActivity
             Intent.FLAG_GRANT_READ_URI_PERMISSION |
             Intent.FLAG_GRANT_WRITE_URI_PERMISSION);
         String GamePath = getFullPathFromTreeUri(treeUri,this); 
+        // gives /storage/extSdCard/plaunch
+        //String GamePath = treeUri.getPath();
+        // gives /tree/4411-1D0A:plaunch
         Tools.DIR_GAME_HOME = GamePath;
         StorageAllowed = true;
         if (Tools.ENABLE_DEV_FEATURES) {
