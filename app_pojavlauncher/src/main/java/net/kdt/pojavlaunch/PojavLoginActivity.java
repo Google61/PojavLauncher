@@ -132,7 +132,7 @@ public class PojavLoginActivity extends BaseActivity
         
         private int revokeCount = -1;
         
-        public boolean isInitCalled;
+        public boolean IsInitCalled2;
         protected Integer tryInitMain() {
             int InitCode = 0;
             try {
@@ -177,7 +177,7 @@ public class PojavLoginActivity extends BaseActivity
             }
             
             while (isStorageAllowed() || StorageAllowed && !isInitCalled) {
-                isInitCalled = true;
+                isInitCalled2 = true;
                 return tryInitMain();
             }
             return 0;
@@ -239,6 +239,7 @@ public class PojavLoginActivity extends BaseActivity
         spinnerChgLang.setAdapter(langAdapter);
         spinnerChgLang.setSelection(selectedLang);
         spinnerChgLang.setOnItemSelectedListener(new Spinner.OnItemSelectedListener(){
+            private boolean isInitCalled;
             @Override
             public void onItemSelected(AdapterView<?> adapter, View view, int position, long id) {
                 if (!isInitCalled) {
