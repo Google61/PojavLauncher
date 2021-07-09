@@ -1002,12 +1002,14 @@ public class PojavLoginActivity extends BaseActivity
             Intent.FLAG_GRANT_WRITE_URI_PERMISSION);
         String GamePath = getFullPathFromTreeUri(treeUri,this); 
         // gives /storage/extSdCard/plaunch
-        //String GamePath = treeUri.getPath();
+        String treeGamePath = treeUri.getPath();
         // gives /tree/4411-1D0A:plaunch
         Tools.DIR_GAME_HOME = GamePath;
         StorageAllowed = true;
         if (Tools.ENABLE_DEV_FEATURES) {
-            Toast.makeText(PojavLoginActivity.this, ("Picked path: " + GamePath), Toast.LENGTH_LONG).show();
+            Toast.makeText(PojavLoginActivity.this, ("Picked absolute path: " + GamePath), Toast.LENGTH_LONG).show();
+            Toast.makeText(PojavLoginActivity.this, ("Picked tree path: " + treeGamePath), Toast.LENGTH_LONG).show();
+            Toast.makeText(PojavLoginActivity.this, ("DIR_GAME_HOME: " + Tools.DIR_GAME_HOME), Toast.LENGTH_LONG).show();
         }
     }
     }
