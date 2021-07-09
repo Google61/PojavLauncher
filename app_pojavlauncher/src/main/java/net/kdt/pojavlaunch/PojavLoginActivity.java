@@ -132,7 +132,7 @@ public class PojavLoginActivity extends BaseActivity
         
         private int revokeCount = -1;
         
-        public boolean IsInitCalled2;
+        public boolean isInitCalled2;
         protected Integer tryInitMain() {
             int InitCode = 0;
             try {
