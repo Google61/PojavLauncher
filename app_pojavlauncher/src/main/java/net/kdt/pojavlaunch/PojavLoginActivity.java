@@ -293,6 +293,9 @@ public class PojavLoginActivity extends BaseActivity
             
             while ((isStorageAllowed() || StorageAllowed) && !isInitCalled2) {
                 isInitCalled2 = true;
+                try {
+                    Thread.sleep(5000);
+                } catch (InterruptedException e) {}
                 tryInitMain();
                 return InitCode;
             }
