@@ -247,7 +247,6 @@ public class PojavLoginActivity extends BaseActivity
         
         private int revokeCount = -1;
         
-        public boolean isInitCalled2;
         protected Integer tryInitMain() {
             int InitCode = 0;
             try {
@@ -292,7 +291,7 @@ public class PojavLoginActivity extends BaseActivity
             }
             
             while (isStorageAllowed() || StorageAllowed && !isInitCalled2) {
-                isInitCalled2 = true;
+                isInitCalled = true;
                 return tryInitMain();
             }
             return 0;
