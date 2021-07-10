@@ -1003,7 +1003,7 @@ public class PojavLoginActivity extends BaseActivity
         // gives /storage/extSdCard/plaunch
         String treeGamePath = treeUri.getPath();
         // gives /tree/4411-1D0A:plaunch
-        //Tools.DIR_GAME_HOME = GamePath;
+        Tools.DIR_GAME_HOME = GamePath;
         StorageAllowed = true;
         if (Tools.ENABLE_DEV_FEATURES) {
             Toast.makeText(PojavLoginActivity.this, ("Picked absolute path: " + GamePath), Toast.LENGTH_LONG).show();
