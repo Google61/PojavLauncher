@@ -102,6 +102,7 @@ public class PojavLoginActivity extends BaseActivity
     public Uri treeUri;
     public boolean StorageAllowed;
     public boolean isInitCalled2;
+    public int InitCode = 0;
     // move to utils??
     //public final class FileUtil {
 
@@ -249,7 +250,6 @@ public class PojavLoginActivity extends BaseActivity
         private int revokeCount = -1;
         
         protected Integer tryInitMain() {
-            int InitCode = 0;
             try {
                 initMain();
                 } catch (Throwable th) {
