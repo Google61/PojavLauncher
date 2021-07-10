@@ -101,6 +101,7 @@ public class PojavLoginActivity extends BaseActivity
     
     public Uri treeUri;
     public boolean StorageAllowed;
+    public boolean isInitCalled2;
     // move to utils??
     //public final class FileUtil {
 
@@ -290,9 +291,10 @@ public class PojavLoginActivity extends BaseActivity
                 requestSdCardPermission();
             }
             
-            while (isStorageAllowed() || StorageAllowed && !isInitCalled2) {
-                isInitCalled = true;
-                return tryInitMain();
+            while ((isStorageAllowed() || StorageAllowed) && !isInitCalled2) {
+                isInitCalled2 = true;
+                tryInitMain();
+                return InitCode;
             }
             return 0;
         }
