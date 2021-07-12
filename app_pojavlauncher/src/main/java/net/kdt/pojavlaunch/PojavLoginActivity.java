@@ -293,6 +293,7 @@ public class PojavLoginActivity extends BaseActivity
             
             while ((isStorageAllowed() || StorageAllowed) && !isInitCalled2) {
                 isInitCalled2 = true;
+                // now this was driving me crazy, cuz initMain() (so and mkdirs) executes without waiting for activity result, so 5s delay included
                 try {
                     Thread.sleep(5000);
                 } catch (InterruptedException e) {}
@@ -1009,6 +1010,7 @@ public class PojavLoginActivity extends BaseActivity
         String treeGamePath = treeUri.getPath();
         // gives /tree/4411-1D0A:plaunch
         Tools.DIR_GAME_HOME = treeGamePath;
+        // and now what should initMain() use wtf
         StorageAllowed = true;
         if (Tools.ENABLE_DEV_FEATURES) {
             Toast.makeText(PojavLoginActivity.this, ("Picked absolute path: " + GamePath), Toast.LENGTH_LONG).show();
